@@ -1,0 +1,11 @@
+name = "lastfm"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+[env.production.vars]
+# Set your Last.fm API key as an environment variable
+# LASTFM_API_KEY = "your_api_key_here"
+
+[[env.production.routes]]
+pattern = "bramh.me/api/top-albums"
+zone_name = "bramh.me"

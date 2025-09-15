@@ -4,18 +4,220 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<meta name="description" content="Bram Hagens' personal site">
-    <title>Bram Hagens</title>
+	<meta name="description" content="Bram is a computer science student, backend developer, and FOSS enthousiast">
+    <title>BRAMH(7) - Bram Hagens</title>
+	<link rel="preconnect" href="https://lastfm.bramhaag.workers.dev">
+	<link rel="preload" href="jetbrains-mono.woff2" as="font" type="font/woff2" crossorigin>
+
+	<style type="text/css">
+		@font-face {
+			font-family: 'JetBrains Mono';
+			src: url('jetbrains-mono.woff2') format('woff2');
+			font-weight: 100 800;
+			font-display: swap;
+		}
+
+		:root {
+			--color-background: #eff1f5;
+			--color-text: #000000;
+			--color-link: #005FEE;
+			--font-size: 1em;
+			--max-cols: 50;
+			--indent-size: calc(var(--font-size) * 3);
+		}
+
+		@media (prefers-color-scheme: dark) {
+			:root {
+				--color-background: #1e1e2e;
+				--color-text: #cdd6f4;
+				--color-link: #89b4fa;
+			}
+		}
+
+		body {
+			background-color: var(--color-background);
+			color: var(--color-text);
+			font-family: 'JetBrains Mono', monospace;
+			width: calc(var(--font-size) * var(--max-cols));
+			font-size: var(--font-size);
+		}
+
+		header, footer {
+			display: grid;
+			grid-template-columns: 33% 33% 33%;
+		}
+
+		header, section {
+			margin-bottom: 1em;
+		}
+
+		section {
+			margin-left: var(--indent-size);
+		}
+
+		footer {
+			margin-top: 1em;
+		}
+
+		h2 {
+			text-transform: uppercase;
+			margin: 0 0 0 calc(var(--indent-size) * -1);
+			font-size: var(--font-size);
+		}
+
+		a {
+			text-decoration: none;
+			color: var(--color-link)
+		}
+		
+		.left {
+			text-align: left;
+		}
+
+		.center {
+			text-align: center;
+		}
+
+		.right {
+			text-align: right;
+		}
+
+		ol {
+			margin: 0;
+			padding-left: 0;
+			list-style-position: inside;
+		}
+
+		p div {
+			margin: 0;
+		}
+
+		p div ol {
+			margin: 0;
+		}
+
+		table {
+			border-spacing: 0;
+		}
+
+		td {
+			padding: 0;
+		}
+
+		td:first-child {
+			padding-right: 1ch;
+		}
+
+		p {
+			margin: 1em 0;
+		}
+
+		section h2 + p {
+			margin-top: 0;
+		}
+
+		section p + div,
+		section p + ol,
+		section ol {
+			margin-top: 0;
+		}
+
+		.sr-only {
+			position: absolute;
+			width: 1px;
+			height: 1px;
+			padding: 0;
+			margin: -1px;
+			overflow: hidden;
+			clip: rect(0, 0, 0, 0);
+			white-space: nowrap;
+			border: 0;
+		}
+
+		#album-list {
+			min-height: 5lh;
+		}
+
+
+
+	</style>
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+			const list = document.getElementById('album-list');
+			list.innerHTML = 'Loading...';
+			
+			fetch('https://lastfm.bramhaag.workers.dev/api/top-albums')
+				.then(response => response.json())
+				.then(data => {
+					const ol = document.createElement('ol');
+					data.albums.forEach(album => {
+						const li = document.createElement('li');
+						li.innerHTML = `${album.artist} - ${album.name} <small class="sr-only">played ${album.playcount} times</small><small aria-hidden="true">(${album.playcount}x)</small>`;
+						ol.appendChild(li);
+					});
+					list.replaceWith(ol);
+				})
+				.catch(() => {
+					list.innerHTML = 'Error';
+				});
+		});
+	</script>
   </head>
   <body>
-	<pre>Bram Hagens
+		<header aria-hidden="true">
+			<span class="left">BRAMH(7)</span>
+			<span class="center">Bram Hagens</span>
+			<span class="right">BRAMH(7)</span>
+		</header>
+		<main id="main">
+		<section>
+			<h2>Name</h2>
+			<p><strong>bramh</strong> - Bram Hagens <span class="sr-only">pronouns he/him</span><span aria-hidden="true">(he/him)</span></p>
+		</section>
+		<section>
+			<h2>Description</h2>
+			<p>I am a 24 year old computer science student from The Netherlands, persuing a master's degree at University of Twente. My interests lie in backend development, formal methods, and procedural generation. I enjoy creating and contributing to free and open-source software.</p>
+		</section>
+		<section>
+			<h2>Projects</h2>
+			<p>Deshittify <span aria-hidden="true">&lt;</span><a href="https://codeberg.org/deshittify/deshittify" aria-label="Deshittify on Codeberg">https://codeberg.org/deshittify/deshittify</a><span aria-hidden="true">&gt;</span> - a browser extension to remove unwanted functionality from websites.</p>
+		</section>
+		<section>
+			<h2>Notes</h2>
+			<p>I enjoy listening to music, these are my top 5 most listened albums this month:</p>
+			<div id="album-list">
+				<noscript>JavaScript required</noscript>
+			</div>
+			<small>(via <a href="https://www.last.fm/user/bramhaag" aria-label="Last.fm profile">last.fm</a>)</small>
 
-
-Discord:  bramh
-GitHub:   <a href="https://github.com/bramhaag">https://github.com/bramhaag</a>
-Codeberg: <a href="https://codeberg.org/bramh">https://codeberg.org/bramh</a>
-E-mail:   bram@&lt;domain&gt; (PGP: <a href="public.asc">499DE67900B12A11</a>, or use WKD)
-
-Or find me on any of <a href="https://keyoxide.org/bram@bramh.me">these</a>.</pre>
+			<p>I excel at procrastination and starting projects. I do not always finish projects <small>(understatement)</small>.</p>
+		</section>
+		<section>
+			<h2>See also</h2>
+			<table>
+				<tr>
+					<td>Codeberg</td>
+					<td><span aria-hidden="true">&lt;</span><a href="https://codeberg.org/bramh" aria-label="Codeberg profile">https://codeberg.org/bramh</a><span aria-hidden="true">&gt;</span></td>
+				</tr>
+				<tr>
+					<td>E-mail</td>
+					<td><span aria-hidden="true">&lt;</span><a href="mailto:bram@bramh.me" aria-label="Email address">bram@bramh.me</a><span aria-hidden="true">&gt;</span> (PGP: <a href="public.asc" aria-label="PGP key">499DE67900B12A11</a>, or use WKD)</td>
+				</tr>
+				<tr>
+					<td>or here:</td>
+					<td><span aria-hidden="true">&lt;</span><a href="https://keyoxide.org/bram@bramh.me" aria-label="Keyoxide profile">https://keyoxide.org/bram@bramh.me</a><span aria-hidden="true">&gt;</span></td>
+				</tr>
+			</table>
+		</section>
+		<section>
+			<h2>Copyright</h2>
+			<p>Copyright (C) 2025 Bram Hagens. Source code of this site is available on Codeberg <span aria-hidden="true">&lt;</span><a href="https://codeberg.org/bramh/www" aria-label="Website source code">https://codeberg.org/bramh/www</a><span aria-hidden="true">&gt;</span>, released under the GNU AGPLv3 license <span aria-hidden="true">&lt;</span><a href="https://www.gnu.org/licenses/agpl.txt" aria-label="AGPL license text">https://www.gnu.org/licenses/agpl.txt</a><span aria-hidden="true">&gt;</span>.</p>	
+		</section>
+		</main>
+		<footer aria-hidden="true">
+			<span class="left">Homepage</span>
+			<span class="center">September 2025</span>
+			<span class="right">BRAMH(7)</span>
+		</footer>
   </body>
 </html>
